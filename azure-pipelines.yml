@@ -33,7 +33,7 @@ stages:
     - deployment: VMDeploy
       displayName: web
       environment:
-        name:  VM
+        name: VM
         resourceType: VirtualMachine
         tags: CICDdeploy
       strategy:
