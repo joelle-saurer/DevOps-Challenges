@@ -6,26 +6,39 @@
 trigger:
 - master
 
+pool:
+  vmImage: 'ubuntu-latest'
+
 stages:
 - stage: Build
-  jobs:
-  - job: 'Build'
+  jobs: 
+    - job: Build
+      displayName: Build Maven project
+      steps:
+        - task: Maven@3
+          inputs:
+            mavenPomFile: 'pom.xml'
+            goals: 'package'
+        - task: CopyFiles@2
+          displayName: 'Copy Files to artifact staging directory'
+          inputs:
+            SourceFolder: '$(System.DefaultWorkingDirectory)'
+            Contents: '**/target/*.?(war|jar)'
+            TargetFolder: $(Build.ArtifactStagingDirectory)
+        - upload: $(Build.ArtifactStagingDirectory)
+          artifact: drop
 
-    pool:
-      vmImage: 'ubuntu-latest'
-    
-    steps:
-    - task: Maven@3
-      displayName: 'Build Application'
-      inputs:
-        mavenPomFile: 'pom.xml'
-        mavenOptions: '-Xmx3072m'
-        javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '1.8'
-        jdkArchitectureOption: 'x64'
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        goals: 'package'
-    
-//deployment
+- stage: Deploy
+  jobs:
+    - deployment: VMDeploy
+      displayName: web
+      environment:
+        name:  VM
+        resourceType: VirtualMachine
+        tags: CICD
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - script: echo Deployment of Application
 
