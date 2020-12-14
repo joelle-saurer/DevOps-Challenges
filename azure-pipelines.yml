@@ -35,7 +35,7 @@ stages:
       environment:
         name:  VM
         resourceType: VirtualMachine
-        tags: CICD
+        tags: CICDdeploy
       strategy:
         runOnce:
           deploy:
