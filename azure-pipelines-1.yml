@@ -28,9 +28,10 @@ stages:
           artifact: drop
 
 - stage: Deploy
+  displayName: Deploy application
+  dependsOn: Build
   jobs:
     - deployment: VMDeploy
-      displayName: web
       environment:
         name: VM
         resourceType: VirtualMachine
