@@ -42,14 +42,14 @@ stages:
         runOnce:
           deploy:
             steps:
-            - download: current
+            - download: latest
               artifact: drop   
             - task: AzureWebApp@1
               inputs:
                 azureSubscription: 'Resource Manager - Online Cinema'
                 appType: 'webAppLinux'
                 appName: 'onlineCinema'
-                package: '$(Pipeline.Workspace)/drop/target/cinema-2.1.0-SNAPSHOT.war'
+                package: '$(Pipeline.Workspace)/drop/target/*.war'
                 runtimeStack: 'TOMCAT|9.0-java11'
 
 
