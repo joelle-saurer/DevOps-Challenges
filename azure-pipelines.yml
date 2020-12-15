@@ -29,6 +29,28 @@ stages:
         - upload: $(Build.ArtifactStagingDirectory)
           artifact: drop
 
+- stage: Deploy
+  displayName: Deploy application
+  dependsOn: Build
+  jobs:
+    - deployment: VMDeploy
+      environment:
+        name: VM
+        resourceType: VirtualMachine
+        tags: CICDdeploy
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - download: current
+              artifact: drop   
+            - task: AzureWebApp@1
+              inputs:
+                azureSubscription: 'Resource Manager - Online Cinema'
+                appType: 'webAppLinux'
+                appName: 'onlineCinema'
+                package: '$(System.DefaultWorkingDirectory)/**/*.war'
+                runtimeStack: 'TOMCAT|9.0-java11'
 
 
 
