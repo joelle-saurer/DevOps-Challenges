@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- master
+#- master
 
 pool: 'Default'
 
@@ -51,4 +51,11 @@ stages:
                         Warfile: '/home/azureuser/azagent/_work/1/drop/target/cinema-2.0.0-SNAPSHOT.war'
                         Context: '/cinema'
                         ServerVersion: '7OrAbove'
-
+ 
+            - task: AzureWebApp@1
+              inputs:
+                azureSubscription: 'Resource Manager - Online Cinema'
+                appType: 'webAppLinux'
+                appName: 'onlineCinema'
+                package: '$(Pipeline.Workspace)/drop/target/*.war'
+                runtimeStack: 'TOMCAT|9.0-java11'
