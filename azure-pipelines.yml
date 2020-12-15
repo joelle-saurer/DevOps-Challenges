@@ -49,7 +49,7 @@ stages:
                 azureSubscription: 'Resource Manager - Online Cinema'
                 appType: 'webAppLinux'
                 appName: 'onlineCinema'
-                package: '$(System.DefaultWorkingDirectory)/**/*.war'
+                package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.war'
                 runtimeStack: 'TOMCAT|9.0-java11'
 
 
