@@ -13,9 +13,9 @@ stages:
 - stage: Build
   jobs: 
     - job: Build
-      displayName: Build Maven project
+      displayName: Build $(applicationName)
       steps:
-        - script: echo Build Application
+        - script: echo Build $(applicationName)
         - task: Maven@3
           inputs:
             mavenPomFile: 'pom.xml'
