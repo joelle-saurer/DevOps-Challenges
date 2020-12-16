@@ -48,7 +48,7 @@ stages:
                         TomcatUrl: 'http://localhost:8080'
                         Username: '$(username)'
                         Password: '$(password)'
-                        Warfile: '/home/azureuser/azagent/_work/1/drop/target/cinema-2.0.0-SNAPSHOT.war'
+                        Warfile: '/home/azureuser/azagent/_work/1/drop/target/*.war'
                         Context: '/cinema'
                         ServerVersion: '7OrAbove'
  
