@@ -13,7 +13,7 @@ stages:
 - stage: Build
   jobs: 
     - job: Build
-      displayName: Build $(applicationName)
+      displayName: Build Application
       steps:
         - script: echo Build $(applicationName)
         - task: Maven@3
